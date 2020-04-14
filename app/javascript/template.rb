@@ -1,3 +1,10 @@
+def add_packages
+  packages = %w[
+    tailwindcss
+  ]
+  run_with_clean_bundler_env "yarn add #{packages.join(' ')}"
+end
+
 copy_file 'app/javascript/stylesheets/application.scss'
 copy_file 'app/javascript/stylesheets/base/_fonts.scss'
 copy_file 'app/javascript/stylesheets/base/_index.scss'
@@ -16,10 +23,3 @@ copy_file 'postcss.config.js', force: true
 prepend_file 'app/javascript/packs/application.js', "import 'stylesheets/application.scss';"
 
 add_packages
-
-def add_packages
-  packages = %w[
-    tailwindcss
-  ]
-  run_with_clean_bundler_env "yarn add #{packages.join(' ')}"
-end
