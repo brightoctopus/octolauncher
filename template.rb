@@ -31,8 +31,8 @@ def apply_template!
   create_initial_migration
   generate_spring_binstubs
 
-  binstubs = %w[bundler rubocop]
-  run_with_clean_bundler_env "bundle binstubs #{binstubs.join(' ')} --force"
+  # binstubs = %w[bundler rubocop]
+  # run_with_clean_bundler_env "bundle binstubs #{binstubs.join(' ')} --force"
 
   template 'rubocop.yml.tt', '.rubocop.yml'
   run_rubocop_autocorrections
@@ -102,16 +102,6 @@ def assert_postgresql
   fail Rails::Generators::Error,
        "This template requires PostgreSQL, "\
        "but the pg gem isn’t present in your Gemfile."
-end
-
-def gemfile_requirement(name)
-  @original_gemfile ||= IO.read("Gemfile")
-  req = @original_gemfile[/gem\s+['"]#{name}['"]\s*(,[><~= \t\d\.\w'"]*)?.*$/, 1]
-  req && req.gsub("'", %(")).strip.sub(/^,\s*"/, ', "')
-end
-
-def git_repo_specified?
-  git_repo_url != "skip" && !git_repo_url.strip.empty?
 end
 
 def preexisting_git_repo?

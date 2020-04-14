@@ -1,7 +1,13 @@
 AllCops:
   TargetRubyVersion: '<%= RUBY_VERSION %>'
   Exclude:
+    - 'vendor/**/*'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'db/seeds/**/*'
     - 'bin/**/*'
+    - 'node_modules/**/*'
     - 'tmp/*'
 
 # Max line length is changed from default 80
