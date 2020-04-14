@@ -14,7 +14,6 @@ gem 'redis', '~> 4.0'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
-
 <% if  @default_options[:devise] %>
   gem 'devise'
   gem 'name_of_person'
@@ -24,7 +23,6 @@ gem 'webpacker', '~> 4.0'
   gem 'sidekiq'
   gem 'sidekiq-failures', '~> 1.0'
 <% end %>
-
 <% if  @default_options[:rspec] %>
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
@@ -37,7 +35,9 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
-
+  <% if  @default_options[:rspec] %>
+    gem 'bullet'
+  <% end %>
   <% if  @default_options[:rspec] %>
     gem 'rubocop-rspec'
   <% end %>
@@ -60,7 +60,6 @@ end
     gem 'database_cleaner', require: false
 
     gem 'factory_bot_rails', require: false
-    gem 'pundit-matchers', '~> 1.6.0'
     gem 'rails-controller-testing'
     gem 'rspec-collection_matchers'
     gem 'rspec-rails'

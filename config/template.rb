@@ -15,5 +15,6 @@ route "root 'home#index'"
 
 if @default_options[:sidekiq]
   copy_file 'config/sidekiq.yml'
+  copy_file 'config/redis.rb'
   route %Q(mount Sidekiq::Web => '/sidekiq' # Unsafe for production, should only be accessible to admins\n)
 end

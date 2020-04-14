@@ -67,6 +67,7 @@ def set_default_options
     tailwind: true,
     sidekiq: true,
     rspec: true,
+    bullet: true,
     mailcatcher: true
   }
 end
@@ -78,6 +79,7 @@ def ask_options
   @default_options[:tailwind] = yes?('Install TailwindCSS? (Y/n)')
   @default_options[:sidekiq] = yes?('Install Sidekiq? (Y/n)')
   @default_options[:rspec] = yes?('Install RSpec? (Y/n)')
+  @default_options[:bullet] = yes?('Install RSpec? (Y/n)')
   @default_options[:mailcatcher] = yes?('Install Mailcatcher? (Y/n)')
 end
 
