@@ -1,49 +1,11 @@
 require 'bundler'
 require 'json'
-RAILS_REQUIREMENT = '~> 6.0.0'.freeze
-
-def apply_template!
-  assert_minimum_rails_version
-  assert_valid_options
-  assert_postgresql
-  add_template_repository_to_source_path
-
-  template 'Gemfile.tt', force: true
-
-  template 'README.md.tt', force: true
-  remove_file 'README.rdoc'
-
-  copy_file 'gitignore', '.gitignore', force: true
-  template 'ruby-version.tt', '.ruby-version', force: true
-
-  copy_file 'Procfile'
-
-  apply 'app/template.rb'
-  apply 'config/template.rb'
-
-  git :init unless preexisting_git_repo?
-  empty_directory '.git/safe'
-
-  rails_command 'db:drop db:create db:migrate'
-  run_with_clean_bundler_env 'bin/rails webpacker:install'
-  apply 'app/javascript/template.rb'
-
-  create_initial_migration
-  # generate_spring_binstubs
-
-  # binstubs = %w[bundler rubocop]
-  # run_with_clean_bundler_env "bundle binstubs #{binstubs.join(' ')} --force"
-
-  template 'rubocop.yml.tt', '.rubocop.yml'
-  # run_rubocop_autocorrections
-
-  git add: '-A .'
-  git commit: "-n -m 'Set up project'"
-end
-
 require 'fileutils'
 require 'shellwords'
 
+RAILS_REQUIREMENT = '~> 6.0.0'.freeze
+
+# Copied from: https://github.com/mattbrictson/rails-template
 # Add this template directory to source_paths so that Thor actions like
 # copy_file and template resolve against our source files. If this file was
 # invoked remotely via HTTP, that means the files are not present locally.
@@ -77,33 +39,6 @@ def assert_minimum_rails_version
   exit 1 if no?(prompt)
 end
 
-# Bail out if user has passed in contradictory generator options.
-def assert_valid_options
-  valid_options = {
-    skip_gemfile: false,
-    skip_bundle: false,
-    skip_git: false,
-    skip_system_test: false,
-    skip_test: false,
-    skip_test_unit: false,
-    edge: false
-  }
-  valid_options.each do |key, expected|
-    next unless options.key?(key)
-    actual = options[key]
-    unless actual == expected
-      fail Rails::Generators::Error, "Unsupported option: #{key}=#{actual}"
-    end
-  end
-end
-
-def assert_postgresql
-  return if IO.read("Gemfile") =~ /^\s*gem ['"]pg['"]/
-  fail Rails::Generators::Error,
-       "This template requires PostgreSQL, "\
-       "but the pg gem isn’t present in your Gemfile."
-end
-
 def preexisting_git_repo?
   @preexisting_git_repo ||= (File.exist?(".git") || :nope)
   @preexisting_git_repo == true
@@ -122,26 +57,96 @@ def run_with_clean_bundler_env(cmd)
 end
 
 def run_rubocop_autocorrections
-  run_with_clean_bundler_env "bin/rubocop -a --fail-level A > /dev/null || true"
+  run_with_clean_bundler_env 'bin/rubocop -a --fail-level A > /dev/null || true'
 end
 
-def create_initial_migration
-  return if Dir["db/migrate/**/*.rb"].any?
-  run_with_clean_bundler_env "bin/rails generate migration initial_migration"
-  run_with_clean_bundler_env "bin/rake db:migrate"
+def set_default_options
+  @default_options = {
+    devise: true,
+    tailwind: true
+  }
 end
 
-def add_package_json_script(scripts)
-  package_json = JSON.parse(IO.read('package.json'))
-  package_json["scripts"] ||= {}
-  scripts.each do |name, script|
-    package_json["scripts"][name.to_s] = script
+def ask_options
+  return unless yes?('Use custom configuration? (Y/n)', :blue)
+
+  @default_options[:devise] = yes?('Install Devise? (Y/n)')
+  @default_options[:tailwind] = yes?('Install TailwindCSS? (Y/n)')
+end
+
+def add_gems
+  template 'Gemfile.tt', force: true
+end
+
+def add_devise
+  return unless @default_options[:devise]
+
+  generate 'devise:install'
+
+  environment "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }",
+              env: 'development'
+
+  generate 'devise', 'User',
+           'first_name',
+           'last_name'
+end
+
+def stop_spring
+  run 'spring stop'
+end
+
+def add_tailwind
+  return unless @default_options[:tailwind]
+
+  apply 'app/javascript/template.rb'
+end
+
+def copy_templates
+  template 'README.md.tt', force: true
+  remove_file 'README.rdoc'
+
+  template 'env.tt'
+  copy_file 'gitignore', '.gitignore', force: true
+  template 'ruby-version.tt', '.ruby-version', force: true
+
+  copy_file 'Procfile'
+
+  apply 'app/template.rb'
+  apply 'config/template.rb'
+
+  template 'rubocop.yml.tt', '.rubocop.yml'
+end
+
+def apply_template!
+  assert_minimum_rails_version
+  add_template_repository_to_source_path
+
+  set_default_options
+  ask_options
+
+  add_gems
+
+  after_bundle do
+    stop_spring
+    add_devise
+    add_tailwind
+
+    copy_templates
+
+    rails_command 'db:drop db:create db:migrate'
+
+    generate_spring_binstubs
+
+    binstubs = %w[bundler rubocop]
+    run_with_clean_bundler_env "bundle binstubs #{binstubs.join(' ')} --force"
+
+    run_rubocop_autocorrections
+
+    git :init unless preexisting_git_repo?
+
+    git add: '-A .'
+    git commit: "-n -m 'Set up project'"
   end
-  package_json = {
-    "name" => package_json["name"],
-    "scripts" => package_json["scripts"].sort.to_h
-  }.merge(package_json)
-  IO.write("package.json", JSON.pretty_generate(package_json) + "\n")
 end
 
 apply_template!

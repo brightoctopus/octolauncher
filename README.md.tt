@@ -1,33 +1,5 @@
-# Bright Octopus
+# <%= app_name.humanize %>
 
-## Development Setup
+Rails app generated with [brightoctopus/octolauncher](https://github.com/brightoctopus/octolauncher).
 
-1. `rails db:create`
-
-2. `rake db:schema:load`
-
-3. `rails db:seed`
-
-4. `bundle`
-
-5. `yarn`
-
-6. `rails s`
-
-## Testing
-
-1. `rails db:test:prepare`
-
-2. `rake`
-
-## Staging
-
-1. `git remote add staging https://git.heroku.com/bright-octopus-staging.git`
-
-2. `rake deploy:staging` to deploy master to staging
-
-## Production
-
-1. `git remote add production https://git.heroku.com/bright-octopus.git`
-
-2. `rake deploy:production` to deploy master to staging
+Visit [Bright Octopus](https://www.brightoctopus.dev) for Ruby on Rails tutorials and more.
