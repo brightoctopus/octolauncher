@@ -26,7 +26,7 @@ def apply_template!
 
   run_with_clean_bundler_env 'bin/setup'
   run_with_clean_bundler_env 'bin/rails webpacker:install'
-  apply 'javascript/template.rb'
+  apply 'app/javascript/template.rb'
 
   create_initial_migration
   generate_spring_binstubs
