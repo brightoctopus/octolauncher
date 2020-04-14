@@ -29,13 +29,13 @@ def apply_template!
   apply 'app/javascript/template.rb'
 
   create_initial_migration
-  generate_spring_binstubs
+  # generate_spring_binstubs
 
-  binstubs = %w[bundler rubocop]
-  run_with_clean_bundler_env "bundle binstubs #{binstubs.join(' ')} --force"
+  # binstubs = %w[bundler rubocop]
+  # run_with_clean_bundler_env "bundle binstubs #{binstubs.join(' ')} --force"
 
   template 'rubocop.yml.tt', '.rubocop.yml'
-  run_rubocop_autocorrections
+  # run_rubocop_autocorrections
 
   git add: '-A .'
   git commit: "-n -m 'Set up project'"
