@@ -24,7 +24,7 @@ def apply_template!
   git :init unless preexisting_git_repo?
   empty_directory '.git/safe'
 
-  run_with_clean_bundler_env 'bin/setup'
+  run_with_clean_bundler_env 'bin/rails db:create:all'
   run_with_clean_bundler_env 'bin/rails webpacker:install'
   apply 'app/javascript/template.rb'
 
