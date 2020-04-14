@@ -119,8 +119,6 @@ end
 
 def run_with_clean_bundler_env(cmd)
   success = if defined?(Bundler)
-              Bundler.with_unbundled_env { run(cmd) }
-            rescue NoMethodError
               Bundler.with_clean_env { run(cmd) }
             else
               run(cmd)
