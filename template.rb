@@ -57,34 +57,46 @@ def run_with_clean_bundler_env(cmd)
 end
 
 def run_rubocop_autocorrections
-  run_with_clean_bundler_env 'bin/rubocop -a --fail-level A > /dev/null || true'
+  run 'rubocop -a > /dev/null || true'
+  # run_with_clean_bundler_env 'bin/rubocop -a --fail-level A > /dev/null || true'
 end
 
 def set_default_options
   @default_options = {
     devise: true,
-    tailwind: true
+    tailwind: true,
+    sidekiq: true,
+    rspec: true,
+    mailcatcher: true
   }
 end
 
 def ask_options
-  return unless yes?('Use custom configuration? (Y/n)', :blue)
+  return unless no?('Use default configuration? (Y/n)', :blue)
 
   @default_options[:devise] = yes?('Install Devise? (Y/n)')
   @default_options[:tailwind] = yes?('Install TailwindCSS? (Y/n)')
+  @default_options[:sidekiq] = yes?('Install Sidekiq? (Y/n)')
+  @default_options[:rspec] = yes?('Install RSpec? (Y/n)')
+  @default_options[:mailcatcher] = yes?('Install Mailcatcher? (Y/n)')
 end
 
 def add_gems
   template 'Gemfile.tt', force: true
 end
 
+def add_rspec
+  return unless @default_options[:rspec]
+
+  generate 'rspec:install'
+
+  directory 'spec', force: true
+end
+
 def add_devise
   return unless @default_options[:devise]
 
   generate 'devise:install'
-
-  environment "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }",
-              env: 'development'
 
   generate 'devise', 'User',
            'first_name',
@@ -99,6 +111,14 @@ def add_tailwind
   return unless @default_options[:tailwind]
 
   apply 'app/javascript/template.rb'
+end
+
+def install_mailcatcher
+  return unless @default_options[:tailwind]
+
+  return if run 'gem list -i "^mailcatcher$"'
+
+  run 'gem install mailcatcher'
 end
 
 def copy_templates
@@ -128,8 +148,10 @@ def apply_template!
 
   after_bundle do
     stop_spring
+    add_rspec
     add_devise
     add_tailwind
+    install_mailcatcher
 
     copy_templates
 
