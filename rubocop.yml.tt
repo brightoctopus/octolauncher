@@ -1,7 +1,8 @@
-require:
-  - rubocop-performance
-  - rubocop-rails
-  - rubocop-rspec
+AllCops:
+  TargetRubyVersion: '<%= RUBY_VERSION %>'
+  Exclude:
+    - 'bin/**/*'
+    - 'tmp/*'
 
 # Max line length is changed from default 80
 Layout/LineLength:
@@ -48,65 +49,8 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
-# assignment branch condition size
-Metrics/AbcSize:
-  Enabled: false
-
-Rails/UnknownEnv:
-  Environments:
-    - production
-    - staging
-    - development
-    - test
-
-Rails/FilePath:
-  EnforcedStyle: slashes
-
-Rails/DynamicFindBy:
-  Enabled: false
-
-RSpec/HookArgument:
-  Enabled: false
-
-RSpec/NamedSubject:
-    Enabled: false
-
-RSpec/MultipleExpectations:
-  Max: 2
-
-RSpec/ExampleLength:
-  Max: 15
-  Exclude:
-    - spec/features/*
-
-RSpec/DescribeClass:
-  Exclude:
-    - spec/features/*
-
-RSpec/InstanceVariable:
-  Enabled: false
-
-RSpec/FilePath:
-  Enabled: false
-
-FactoryBot/CreateList:
-  Enabled: false
-
-Style/ModuleFunction:
-  Enabled: false
-
-Style/RescueStandardError:
-  Enabled: false
-
 Style/Alias:
   EnforcedStyle: prefer_alias_method
-
-Style/DoubleNegation:
-  Enabled: false
-
-Style/GlobalVars:
-  AllowedVariables:
-    - '$redis'
 
 Style/HashEachMethods:
   Enabled: true
@@ -117,14 +61,4 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
-AllCops:
-  TargetRubyVersion: 2.6.5
-  Exclude:
-    - 'vendor/**/*'
-    - 'db/migrate/**/*'
-    - 'db/schema.rb'
-    - 'db/seeds.rb'
-    - 'db/seeds/**/*'
-    - 'bin/**/*'
-    - 'node_modules/**/*'
-    - 'tmp/*'
+

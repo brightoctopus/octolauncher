@@ -1,7 +1,7 @@
 <nav class="flex items-center justify-between flex-wrap p-2 border shadow-lg z-50 lg:px-12 xl:px-24">
   <div class="flex items-center flex-shrink-0 mr-6">
     <div>
-      <%= link_to  app_root_path do %>
+      <%= link_to  root_path do %>
         <%= image_tag 'logo.png', alt: 'Bright Octopus', class: 'h-xl' %>
       <% end %>
     </div>
@@ -20,7 +20,6 @@
     <div class="flex g:justify-end lg:items-center">
       <%= link_to 'Sign in', '#', class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
       <%= link_to 'Register', '#', class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
-      <% end %>
     </div>
   </div>
 </nav>
