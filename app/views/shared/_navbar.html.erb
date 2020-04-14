@@ -1,0 +1,26 @@
+<nav class="flex items-center justify-between flex-wrap p-2 border shadow-lg z-50 lg:px-12 xl:px-24">
+  <div class="flex items-center flex-shrink-0 mr-6">
+    <div>
+      <%= link_to  app_root_path do %>
+        <%= image_tag 'logo.png', alt: 'Bright Octopus', class: 'h-xl' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="block lg:hidden">
+    <button class="flex items-center px-3 py-2">
+      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+    </button>
+  </div>
+  <div class="hidden navbar-collapsible"
+  >
+    <div class="lg:flex-grow lg:flex-start">
+      <%= link_to 'Nav Link 1', '#', class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
+      <%= link_to 'Nav Link 2', '#', class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
+    </div>
+    <div class="flex g:justify-end lg:items-center">
+      <%= link_to 'Sign in', '#', class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
+      <%= link_to 'Register', '#', class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
+      <% end %>
+    </div>
+  </div>
+</nav>

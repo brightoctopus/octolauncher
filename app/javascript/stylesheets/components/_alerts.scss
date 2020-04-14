@@ -1,0 +1,29 @@
+.alert {
+  min-width: 300px;
+
+  @apply absolute top-0 right-0 m-4 p-4 rounded shadow-lg bg-white z-50 flex;
+
+  .close {
+    @apply border-none flex-shrink-0 ml-2;
+
+    span {
+      height: .75rem;
+      width: .75rem;
+    }
+  }
+
+  &::before {
+    content: '';
+    width: 5px;
+
+    @apply absolute left-0 top-0 h-full rounded;
+  }
+
+  &-success {
+    @apply bg-pink-600 text-white;
+  }
+
+  &-error {
+    @apply bg-red-600 text-white;
+  }
+}

@@ -1,0 +1,7 @@
+.row {
+  @apply flex flex-col flex-wrap;
+
+  @screen md {
+    @apply flex-row;
+  }
+}

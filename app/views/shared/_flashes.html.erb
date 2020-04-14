@@ -1,0 +1,18 @@
+<div id="flash-messages">
+  <% if notice %>
+    <div class="alert alert-success" role="alert">
+      <div class="flex-grow"><%= notice %></div>
+      <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+  <% if alert %>
+    <div class="alert alert-error" role="alert">
+      <div class="flex-grow"><%= alert %></div>
+      <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+</div>

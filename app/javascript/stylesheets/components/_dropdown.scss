@@ -1,0 +1,21 @@
+.dropdown-item {
+  @apply px-4 py-2 block text-black text-sm flex;
+
+  svg {
+    @apply stroke-0 text-primary stroke-current w-4 h-auto flex-grow-0 flex-shrink-0 mr-4;
+  }
+
+  path { fill: currentcolor; }
+}
+
+.dropdown-item:hover {
+  background-color: rgba(#edf2f7, .6 );
+}
+
+.dropdown-collapsible {
+  @apply items-center absolute top-auto left-0 border rounded-b-lg bg-white py-2 mt-2 shadow-lg w-48 rounded;
+
+  @screen lg {
+    @apply left-auto right-0;
+  }
+}

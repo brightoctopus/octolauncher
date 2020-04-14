@@ -1,0 +1,17 @@
+body {
+  height: 100vh;
+  margin: 0;
+  overflow-x: hidden !important;
+
+  @apply bg-white text-black;
+}
+
+button,
+a {
+  cursor: pointer;
+
+  * {
+    pointer-events: none;
+  }
+}
+

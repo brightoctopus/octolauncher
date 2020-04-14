@@ -1,0 +1,13 @@
+.navbar {
+  &-collapsible {
+    flex-basis: 100%;
+
+    @apply flex-grow;
+
+    @screen lg {
+      flex-basis: auto;
+
+      @apply flex items-center w-auto;
+    }
+  }
+}

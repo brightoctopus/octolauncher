@@ -1,0 +1,23 @@
+body {
+  @apply font-body;
+}
+
+h1, h2, h3, h4, h5 {
+  @apply font-heading font-bold;
+}
+
+h1 {
+  @apply text-4xl leading-tight;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+h4 {
+  @apply text-lg;
+}
