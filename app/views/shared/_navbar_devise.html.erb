@@ -1,0 +1,41 @@
+<nav class="flex items-center justify-between flex-wrap p-2 border shadow-lg z-50 lg:px-12 xl:px-24">
+  <div class="flex items-center flex-shrink-0 mr-6">
+    <div>
+      <%= link_to root_path do %>
+        <%= image_tag 'logo.png', alt: 'Bright Octopus', class: 'h-xl' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="block lg:hidden">
+    <button class="flex items-center px-3 py-2">
+      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+    </button>
+  </div>
+  <div class="hidden navbar-collapsible">
+    <div class="lg:flex-grow lg:flex-start">
+      <%= link_to 'Nav Link 1', '#', class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
+      <%= link_to 'Nav Link 2', '#', class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
+    </div>
+    <div class="flex g:justify-end lg:items-center">
+      <% if user_signed_in? %>
+        <div class="relative group">
+          <div
+            class="flex px-2 mx-2 cursor-pointer"
+            onClick="document.querySelector('.dropdown-collapsible').classList.toggle('invisible')"
+          >
+            <%= image_tag 'profile.png', class: 'avatar-sm' %>
+          </div>
+          <div class="dropdown-collapsible invisible">
+            <%= link_to 'Edit Profile', '#', class: 'dropdown-item' %>
+            <%= link_to 'Dashboard', '#', class: 'dropdown-item' %>
+            <hr class="border-t mx-2 my-2  border-gray-200">
+            <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </div>
+      <% else %>
+        <%= link_to 'Sign in', new_user_session_path, class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
+        <%= link_to 'Register', new_user_registration_path, class: 'block mt-4 font-bold lg:inline-block lg:mt-0 mr-4' %>
+      <% end %>
+    </div>
+  </div>
+</nav>

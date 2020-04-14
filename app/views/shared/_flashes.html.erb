@@ -2,7 +2,11 @@
   <% if notice %>
     <div class="alert alert-success" role="alert">
       <div class="flex-grow"><%= notice %></div>
-      <button type="button" class="close" aria-label="Close">
+      <button
+        type="button"
+        class="close" aria-label="Close"
+        onClick="event.target.closest('.alert').remove()"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -10,7 +14,11 @@
   <% if alert %>
     <div class="alert alert-error" role="alert">
       <div class="flex-grow"><%= alert %></div>
-      <button type="button" class="close" aria-label="Close">
+      <button
+        type="button"
+        class="close" aria-label="Close"
+        onClick="event.target.closest('.alert').remove()"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
