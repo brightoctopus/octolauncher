@@ -1,0 +1,5 @@
+meta_product_name: 'TODO: Product Name'
+meta_title: 'TODO: Tagline | TODO: Product Name'
+meta_description: 'TODO: Description'
+meta_image: 'card.png' # Must exist in app/assets/images
+twitter_account: '' # Required to Twitter card

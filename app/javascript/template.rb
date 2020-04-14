@@ -20,6 +20,6 @@ copy_file 'app/javascript/stylesheets/pages/_index.scss'
 
 copy_file 'postcss.config.js', force: true
 
-prepend_file 'app/javascript/packs/application.js', "import 'stylesheets/application.scss';"
+prepend_file 'app/javascript/packs/application.js', "import 'stylesheets/application.scss';\n"
 
 add_packages
