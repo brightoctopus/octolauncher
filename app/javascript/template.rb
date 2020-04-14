@@ -11,6 +11,8 @@ copy_file 'app/javascript/stylesheets/components/_navbar.scss'
 copy_file 'app/javascript/stylesheets/config/tailwind.config.js.scss'
 copy_file 'app/javascript/stylesheets/pages/_index.scss'
 
+copy_file 'postcss.config.js', force: true
+
 prepend_file 'app/javascript/packs/application.js', "import 'stylesheets/application.scss';"
 
 add_packages
