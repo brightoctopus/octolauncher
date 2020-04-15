@@ -79,7 +79,7 @@ def ask_options
   @default_options[:tailwind] = yes?('Install TailwindCSS? (Y/n)')
   @default_options[:sidekiq] = yes?('Install Sidekiq? (Y/n)')
   @default_options[:rspec] = yes?('Install RSpec? (Y/n)')
-  @default_options[:bullet] = yes?('Install RSpec? (Y/n)')
+  @default_options[:bullet] = yes?('Install Bullet? (Y/n)')
   @default_options[:mailcatcher] = yes?('Install Mailcatcher? (Y/n)')
 end
 
@@ -116,7 +116,7 @@ def add_tailwind
 end
 
 def install_mailcatcher
-  return unless @default_options[:tailwind]
+  return unless @default_options[:mailcatcher]
 
   return if run 'gem list -i "^mailcatcher$"'
 
