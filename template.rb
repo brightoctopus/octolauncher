@@ -118,9 +118,11 @@ end
 def install_mailcatcher
   return unless @default_options[:mailcatcher]
 
-  return if run 'gem list -i "^mailcatcher$"'
+  run 'gem install mailcatcher' unless mailcather_present?
+end
 
-  run 'gem install mailcatcher'
+def mailcather_present?
+  run 'gem list -i "^mailcatcher$"'
 end
 
 def copy_templates
