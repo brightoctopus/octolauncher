@@ -3,6 +3,8 @@ require 'json'
 require 'fileutils'
 require 'shellwords'
 
+require 'byebug'
+
 RAILS_REQUIREMENT = '~> 6.0.0'.freeze
 
 # Copied from: https://github.com/mattbrictson/rails-template
@@ -122,7 +124,10 @@ def install_mailcatcher
 end
 
 def mailcather_present?
-  run 'gem list -i "^mailcatcher$"'
+  Gem::Specification.find_by_name('mailcatcher')
+  true
+rescue Gem::MissingSpecError
+  false
 end
 
 def copy_templates
