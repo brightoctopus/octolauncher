@@ -1,0 +1,44 @@
+form .field {
+  @apply my-2;
+
+  label, input {
+    display: block;
+  }
+
+  label {
+    @apply text-sm font-bold;
+  }
+
+  input, textarea, select {
+    @apply border rounded w-full px-4 py-2 flex items-center outline-none bg-white;
+
+    &:focus {
+      @apply border-primary;
+    }
+  }
+
+  select {
+    cursor: pointer;
+    appearance: none;
+
+    option {
+      width: 100%;
+    }
+  }
+
+  ::placeholder {
+    @apply font-light;
+  }
+
+  ::-ms-expand {
+    display: none;
+  }
+}
+
+form .actions {
+  @apply mt-4;
+
+  input[type=submit] {
+    @apply button button-primary;
+  }
+}

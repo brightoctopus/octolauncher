@@ -1,0 +1,15 @@
+.button {
+  @apply inline-block font-bold px-4 py-2 leading-none border-2 rounded cursor-pointer transition-colors duration-100;
+
+  &:focus {
+    @apply outline-none;
+  }
+}
+
+.button-primary {
+  @apply bg-primary text-white border-primary;
+
+  &:hover, &:focus {
+    @apply text-secondary;
+  }
+}
